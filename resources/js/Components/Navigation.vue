@@ -36,44 +36,16 @@
                     </div>
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
-                            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                            <Link :class="[
-                                    'rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white',
-                                     route().current('dashboard') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                                  ]"
-                                  aria-current="page"
-                                  :href="route('dashboard')"
-                                  :active="route().current('dashboard')"
-                            >
-                                Dashboard
-                            </Link>
-                            <Link :class="[
-                                    'rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white',
-                                     route().current('projects.index') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                                  ]"
-                                  aria-current="page"
-                                  :href="route('projects.index')"
-                            >
+                            <Link  :class="['px-3 py-2 rounded-md text-sm font-medium', $page.component === 'Project/Index'
+                                ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white']" :href="route('projects.index')">
                                 Projects
                             </Link>
-                            <Link :class="[
-                                    'rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white',
-                                     route().current('projects.import') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                                  ]"
-                                  aria-current="page"
-                                  :href="route('projects.import')"
-                                  :active="route().current('projects.import')"
-                            >
+                            <Link :class="['px-3 py-2 rounded-md text-sm font-medium', $page.component === 'Project/Import'
+                                ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white']" :href="route('projects.import')">
                                 Import
                             </Link>
-                            <Link :class="[
-                                    'rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white',
-                                     route().current('tasks.index') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                                  ]"
-                                  aria-current="page"
-                                  :href="route('tasks.index')"
-                                  :active="route().current('tasks.index')"
-                            >
+                            <Link :class="['px-3 py-2 rounded-md text-sm font-medium', $page.component === 'Task/Index'
+                                ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white']" :href="route('tasks.index')">
                                 Tasks
                             </Link>
                         </div>
