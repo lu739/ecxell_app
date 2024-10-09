@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\File\CreateFileAction;
 use App\Http\Requests\Project\ImportStoreRequest;
+use App\Jobs\ImportProjectExcellFileJob;
 use App\Models\File;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -24,7 +25,9 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
 
-        $filePath = new CreateFileAction($data['file']);
+        $action = new CreateFileAction();
+        $filePath = $action(($data['file']));
 
+        ImportProjectExcellFileJob::dispatch($filePath);
     }
 }
