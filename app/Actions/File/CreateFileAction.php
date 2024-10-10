@@ -7,16 +7,16 @@ use Illuminate\Support\Facades\Storage;
 
 class CreateFileAction
 {
-    public function __invoke($file): string
+    public function __invoke($file): File
     {
         $path = Storage::disk('public')->put('files', $file);
 
-        File::create([
+        $file = File::create([
             'title' => $file->getClientOriginalName(),
             'path' => $path,
             'mime_type' => $file->getClientMimeType(),
         ]);
 
-        return $path;
+        return $file;
     }
 }

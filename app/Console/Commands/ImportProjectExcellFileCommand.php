@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Jobs\ImportProjectExcellFileJob;
+use App\Models\File;
+use App\Models\Task;
 use Illuminate\Console\Command;
 
 class ImportProjectExcellFileCommand extends Command
@@ -26,6 +28,11 @@ class ImportProjectExcellFileCommand extends Command
      */
     public function handle()
     {
-        dispatch(new ImportProjectExcellFileJob('files/ZmzURVqBRchTtx38mJrChH156YJa0r81hE6ghcid.xlsx'));
+        $file = File::query()->first();
+        dispatch(new ImportProjectExcellFileJob(
+                $file,
+                Task::query()->where('file_id', $file->id)->first()
+            )
+        );
     }
 }

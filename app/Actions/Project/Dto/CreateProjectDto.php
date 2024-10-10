@@ -52,25 +52,25 @@ class CreateProjectDto
     {
         return new self(
             // string, integer, float
-            type_id: $collection->get(TitleKeysEnum::TYPE_ID->excellKeys()),
-            title: $collection->get(TitleKeysEnum::TITLE->excellKeys()),
-            worker_count: $collection->get(TitleKeysEnum::WORKER_COUNT->excellKeys()),
-            payment_first_step: $collection->get(TitleKeysEnum::PAYMENT_FIRST_STEP->excellKeys()),
-            payment_second_step: $collection->get(TitleKeysEnum::PAYMENT_SECOND_STEP->excellKeys()),
-            payment_third_step: $collection->get(TitleKeysEnum::PAYMENT_THIRD_STEP->excellKeys()),
-            payment_fourth_step: $collection->get(TitleKeysEnum::PAYMENT_FOURTH_STEP->excellKeys()),
-            service_count: $collection->get(TitleKeysEnum::SERVICE_COUNT->excellKeys()),
-            comment: $collection->get(TitleKeysEnum::COMMENT->excellKeys()),
-            efficiency: $collection->get(TitleKeysEnum::EFFICIENCY->excellKeys()),
+            type_id: $collection->get(TitleKeysEnum::TYPE_ID->excellKey()),
+            title: $collection->get(TitleKeysEnum::TITLE->excellKey()),
+            worker_count: $collection->get(TitleKeysEnum::WORKER_COUNT->excellKey()),
+            payment_first_step: $collection->get(TitleKeysEnum::PAYMENT_FIRST_STEP->excellKey()),
+            payment_second_step: $collection->get(TitleKeysEnum::PAYMENT_SECOND_STEP->excellKey()),
+            payment_third_step: $collection->get(TitleKeysEnum::PAYMENT_THIRD_STEP->excellKey()),
+            payment_fourth_step: $collection->get(TitleKeysEnum::PAYMENT_FOURTH_STEP->excellKey()),
+            service_count: $collection->get(TitleKeysEnum::SERVICE_COUNT->excellKey()),
+            comment: $collection->get(TitleKeysEnum::COMMENT->excellKey()),
+            efficiency: $collection->get(TitleKeysEnum::EFFICIENCY->excellKey()),
             // date
-            date_contract: self::getDate($collection->get(TitleKeysEnum::DATE_CONTRACT->excellKeys()),),
-            date_created: self::getDate($collection->get(TitleKeysEnum::DATE_CREATED->excellKeys()),),
-            date_deadline: self::getDate($collection->get(TitleKeysEnum::DATE_DEADLINE->excellKeys()),),
+            date_contract: self::getDate($collection->get(TitleKeysEnum::DATE_CONTRACT->excellKey()),),
+            date_created: self::getDate($collection->get(TitleKeysEnum::DATE_CREATED->excellKey()),),
+            date_deadline: self::getDate($collection->get(TitleKeysEnum::DATE_DEADLINE->excellKey()),),
             // bool
-            is_chain: self::getBool($collection->get(TitleKeysEnum::IS_CHAIN->excellKeys()),),
-            has_outsource: self::getBool($collection->get(TitleKeysEnum::HAS_OUTSOURCE->excellKeys()),),
-            has_investors: self::getBool($collection->get(TitleKeysEnum::HAS_INVESTORS->excellKeys()),),
-            is_on_time: self::getBool($collection->get(TitleKeysEnum::IS_ON_TIME->excellKeys()),),
+            is_chain: self::getBool($collection->get(TitleKeysEnum::IS_CHAIN->excellKey()),),
+            has_outsource: self::getBool($collection->get(TitleKeysEnum::HAS_OUTSOURCE->excellKey()),),
+            has_investors: self::getBool($collection->get(TitleKeysEnum::HAS_INVESTORS->excellKey()),),
+            is_on_time: self::getBool($collection->get(TitleKeysEnum::IS_ON_TIME->excellKey()),),
         );
     }
 

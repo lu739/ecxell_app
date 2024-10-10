@@ -22,7 +22,7 @@ enum TitleKeysEnum: string
     case COMMENT = 'comment';
     case EFFICIENCY = 'efficiency';
 
-    public function excellKeys(): string
+    public function excellKey(): string
     {
         return match ($this) {
             self::TYPE_ID => 'tip',
@@ -47,7 +47,7 @@ enum TitleKeysEnum: string
 
     public static function getEnumKeyFromRussianValue(string $value): ?string {
         foreach (self::cases() as $enumCase) {
-            if ($enumCase->excellKeys() === $value) {
+            if ($enumCase->excellKey() === $value) {
                 return $enumCase->value;
             }
         }
