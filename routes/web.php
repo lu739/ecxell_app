@@ -22,16 +22,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/projects', [\App\Http\Controllers\ProjectController::class, 'index'])
+        ->name('projects.index');
+    Route::get('/projects/import', [\App\Http\Controllers\ProjectController::class, 'import'])
+        ->name('projects.import');
+    Route::post('/projects/import', [\App\Http\Controllers\ProjectController::class, 'importStore'])
+        ->name('projects.import.store');
+
+    Route::get('/tasks', [\App\Http\Controllers\TaskController::class, 'index'])
+        ->name('tasks.index');
+    Route::get('/tasks/{task}/failed-rows', [\App\Http\Controllers\TaskController::class, 'failedRows'])
+        ->name('tasks.task.failed-rows');
 });
-
-Route::get('/projects', [\App\Http\Controllers\ProjectController::class, 'index'])
-    ->name('projects.index');
-Route::get('/projects/import', [\App\Http\Controllers\ProjectController::class, 'import'])
-    ->name('projects.import');
-Route::post('/projects/import', [\App\Http\Controllers\ProjectController::class, 'importStore'])
-    ->name('projects.import.store');
-
-Route::get('/tasks', [\App\Http\Controllers\TaskController::class, 'index'])
-    ->name('tasks.index');
 
 require __DIR__.'/auth.php';
