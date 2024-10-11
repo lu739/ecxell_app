@@ -21,6 +21,7 @@ enum TitleKeysEnum: string
     case SERVICE_COUNT = 'service_count';
     case COMMENT = 'comment';
     case EFFICIENCY = 'efficiency';
+    case JSON_PAYMENTS = 'payments';
 
     public function excellKey(): string
     {
@@ -42,6 +43,25 @@ enum TitleKeysEnum: string
             self::SERVICE_COUNT => 'kolicestvo_uslug',
             self::COMMENT => 'kommentarii',
             self::EFFICIENCY => 'znacenie_effektivnosti',
+        };
+    }
+
+    public function excellNumericKey(): int
+    {
+        return match ($this) {
+            self::TYPE_ID => 0,
+            self::TITLE => 1,
+            self::DATE_CREATED => 2,
+            self::IS_CHAIN => 3,
+            self::WORKER_COUNT => 4,
+            self::HAS_OUTSOURCE => 5,
+            self::HAS_INVESTORS => 6,
+            self::DATE_DEADLINE => 7,
+            self::IS_ON_TIME => 8,
+            self::DATE_CONTRACT => 9,
+            self::SERVICE_COUNT => 10,
+            self::COMMENT => 11,
+            self::EFFICIENCY => 12,
         };
     }
 

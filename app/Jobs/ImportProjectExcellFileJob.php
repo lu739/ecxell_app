@@ -22,7 +22,6 @@ class ImportProjectExcellFileJob implements ShouldQueue
         private Task $task
     )
     {
-        //
     }
 
     /**
