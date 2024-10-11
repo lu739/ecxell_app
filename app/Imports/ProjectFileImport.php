@@ -38,12 +38,16 @@ class ProjectFileImport implements ToCollection, WithHeadingRow, WithValidation,
         foreach ($collection as $row) {
 
             if (!isset($row[TitleKeysEnum::TITLE->excellKey()])) {
-                continue;
+                throw new \Exception('title is not set');
             }
 
             $collection = collect();
 
             foreach ($row as $key => $value) {
+                if (!isset($key)) {
+                    break;
+                }
+
                 if (!isset($value)) {
                     continue;
                 }
@@ -90,23 +94,23 @@ class ProjectFileImport implements ToCollection, WithHeadingRow, WithValidation,
     public function rules(): array
     {
         return [
-            'tip' => 'required|string',
-            'naimenovanie' => 'required|string',
-            'data_sozdaniia' => 'required|string',
-            'setevik' => 'nullable|string',
-            'kolicestvo_ucastnikov' => 'nullable|integer',
-            'nalicie_autsorsinga' => 'nullable|string',
-            'nalicie_investorov' => 'nullable|string',
-            'dedlain' => 'nullable|integer',
-            'sdaca_v_srok' => 'nullable|string',
-            'vlozenie_v_pervyi_etap' => 'nullable|integer',
-            'vlozenie_vo_vtoroi_etap' => 'nullable|integer',
-            'vlozenie_v_tretii_etap' => 'nullable|integer',
-            'vlozenie_v_cetvertyi_etap' => 'nullable|integer',
-            'podpisanie_dogovora' => 'required|integer',
-            'kolicestvo_uslug' => 'nullable|integer',
-            'kommentarii' => 'nullable|string',
-            'znacenie_effektivnosti' => 'nullable|numeric',
+            TitleKeysEnum::TYPE_ID->excellKey() => 'required|string',
+            TitleKeysEnum::TITLE->excellKey() => 'required|string',
+            TitleKeysEnum::DATE_CREATED->excellKey() => 'required|integer',
+            TitleKeysEnum::IS_CHAIN->excellKey() => 'nullable|string',
+            TitleKeysEnum::WORKER_COUNT->excellKey() => 'nullable|integer',
+            TitleKeysEnum::HAS_OUTSOURCE->excellKey() => 'nullable|string',
+            TitleKeysEnum::HAS_INVESTORS->excellKey() => 'nullable|string',
+            TitleKeysEnum::DATE_DEADLINE->excellKey() => 'nullable|integer',
+            TitleKeysEnum::IS_ON_TIME->excellKey() => 'nullable|string',
+            TitleKeysEnum::PAYMENT_FIRST_STEP->excellKey() => 'nullable|integer',
+            TitleKeysEnum::PAYMENT_SECOND_STEP->excellKey() => 'nullable|integer',
+            TitleKeysEnum::PAYMENT_THIRD_STEP->excellKey() => 'nullable|integer',
+            TitleKeysEnum::PAYMENT_FOURTH_STEP->excellKey() => 'nullable|integer',
+            TitleKeysEnum::DATE_CONTRACT->excellKey() => 'required|integer',
+            TitleKeysEnum::SERVICE_COUNT->excellKey() => 'nullable|integer',
+            TitleKeysEnum::COMMENT->excellKey() => 'nullable|string',
+            TitleKeysEnum::EFFICIENCY->excellKey() => 'nullable|numeric',
         ];
     }
 
@@ -130,7 +134,7 @@ class ProjectFileImport implements ToCollection, WithHeadingRow, WithValidation,
             (new CreateFailedRowsAction())($map);
         }
 
-        // return Command::FAILURE;
+        return Command::FAILURE;
     }
 
     public function customValidationMessages()

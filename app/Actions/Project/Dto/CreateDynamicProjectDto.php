@@ -7,10 +7,10 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class CreateProjectDto
+class CreateDynamicProjectDto
 {
     public function __construct(
-        private string $type_id,
+        private int $type_id,
         private string $title,
         private string $date_created,
         private string $is_chain,
@@ -19,14 +19,11 @@ class CreateProjectDto
         private string $has_investors,
         private ?string $date_deadline,
         private ?bool $is_on_time,
-        private int $payment_first_step,
-        private int $payment_second_step,
-        private int $payment_third_step,
-        private int $payment_fourth_step,
         private string $date_contract,
         private int $service_count,
         private string $comment,
         private float $efficiency,
+        private ?string $json_payments,
     )
     {
     }
@@ -51,26 +48,23 @@ class CreateProjectDto
     public static function fromCollection(Collection $collection): self
     {
         return new self(
-            // string, integer, float
-            type_id: $collection->get(TitleKeysEnum::TYPE_ID->excellKey()),
-            title: $collection->get(TitleKeysEnum::TITLE->excellKey()),
-            worker_count: $collection->get(TitleKeysEnum::WORKER_COUNT->excellKey()),
-            payment_first_step: $collection->get(TitleKeysEnum::PAYMENT_FIRST_STEP->excellKey()),
-            payment_second_step: $collection->get(TitleKeysEnum::PAYMENT_SECOND_STEP->excellKey()),
-            payment_third_step: $collection->get(TitleKeysEnum::PAYMENT_THIRD_STEP->excellKey()),
-            payment_fourth_step: $collection->get(TitleKeysEnum::PAYMENT_FOURTH_STEP->excellKey()),
-            service_count: $collection->get(TitleKeysEnum::SERVICE_COUNT->excellKey()),
-            comment: $collection->get(TitleKeysEnum::COMMENT->excellKey()),
-            efficiency: $collection->get(TitleKeysEnum::EFFICIENCY->excellKey()),
+            // string, integer, float, array
+            type_id: $collection->get(TitleKeysEnum::TYPE_ID->excellNumericKey()),
+            title: $collection->get(TitleKeysEnum::TITLE->excellNumericKey()),
+            worker_count: $collection->get(TitleKeysEnum::WORKER_COUNT->excellNumericKey()),
+            service_count: $collection->get(TitleKeysEnum::SERVICE_COUNT->excellNumericKey()),
+            comment: $collection->get(TitleKeysEnum::COMMENT->excellNumericKey()),
+            efficiency: $collection->get(TitleKeysEnum::EFFICIENCY->excellNumericKey()),
+            json_payments: $collection->get(TitleKeysEnum::JSON_PAYMENTS->value),
             // date
-            date_contract: self::getDate($collection->get(TitleKeysEnum::DATE_CONTRACT->excellKey()),),
-            date_created: self::getDate($collection->get(TitleKeysEnum::DATE_CREATED->excellKey()),),
-            date_deadline: self::getDate($collection->get(TitleKeysEnum::DATE_DEADLINE->excellKey()),),
+            date_contract: self::getDate($collection->get(TitleKeysEnum::DATE_CONTRACT->excellNumericKey()),),
+            date_created: self::getDate($collection->get(TitleKeysEnum::DATE_CREATED->excellNumericKey()),),
+            date_deadline: self::getDate($collection->get(TitleKeysEnum::DATE_DEADLINE->excellNumericKey()),),
             // bool
-            is_chain: self::getBool($collection->get(TitleKeysEnum::IS_CHAIN->excellKey()),),
-            has_outsource: self::getBool($collection->get(TitleKeysEnum::HAS_OUTSOURCE->excellKey()),),
-            has_investors: self::getBool($collection->get(TitleKeysEnum::HAS_INVESTORS->excellKey()),),
-            is_on_time: self::getBool($collection->get(TitleKeysEnum::IS_ON_TIME->excellKey()),),
+            is_chain: self::getBool($collection->get(TitleKeysEnum::IS_CHAIN->excellNumericKey()),),
+            has_outsource: self::getBool($collection->get(TitleKeysEnum::HAS_OUTSOURCE->excellNumericKey()),),
+            has_investors: self::getBool($collection->get(TitleKeysEnum::HAS_INVESTORS->excellNumericKey()),),
+            is_on_time: self::getBool($collection->get(TitleKeysEnum::IS_ON_TIME->excellNumericKey()),),
         );
     }
 
@@ -86,14 +80,12 @@ class CreateProjectDto
             'has_investors' => $this->getHasInvestors(),
             'date_deadline' => $this->getDateDeadline(),
             'is_on_time' => $this->getIsOnTime(),
-            'payment_first_step' => $this->getPaymentFirstStep(),
-            'payment_second_step' => $this->getPaymentSecondStep(),
-            'payment_third_step' => $this->getPaymentThirdStep(),
-            'payment_fourth_step' => $this->getPaymentFourthStep(),
+            'payments' => $this->getJsonPayments(),
             'date_contract' => $this->getDateContract(),
             'service_count' => $this->getServiceCount(),
             'comment' => $this->getComment(),
             'efficiency' => $this->getEfficiency(),
+            'json_payments' => $this->getJsonPayments(),
         ];
     }
 
@@ -138,25 +130,6 @@ class CreateProjectDto
         return $this->is_on_time;
     }
 
-    public function getPaymentFirstStep(): int
-    {
-        return $this->payment_first_step;
-    }
-
-    public function getPaymentSecondStep(): int
-    {
-        return $this->payment_second_step;
-    }
-
-    public function getPaymentThirdStep(): int
-    {
-        return $this->payment_third_step;
-    }
-
-    public function getPaymentFourthStep(): int
-    {
-        return $this->payment_fourth_step;
-    }
 
     public function getDateContract(): string
     {
@@ -181,5 +154,10 @@ class CreateProjectDto
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    public function getJsonPayments(): ?string
+    {
+        return $this->json_payments;
     }
 }
